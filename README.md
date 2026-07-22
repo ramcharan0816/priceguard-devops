@@ -3,12 +3,6 @@
 > **An automated price tracking platform powered by a production-style CI/CD pipeline.**
 > Track product prices, receive instant email alerts when prices drop below your target, and experience a deployment workflow built with modern DevOps best practices.
 
-![CI/CD Pipeline](https://github.com/YOUR_USERNAME/priceguard/actions/workflows/ci-cd.yml/badge.svg)
-![Scheduled Price Check](https://github.com/YOUR_USERNAME/priceguard/actions/workflows/price-check.yml/badge.svg)
-
-> **Replace `YOUR_USERNAME` with your GitHub username after publishing the repository.**
-
----
 
 # Overview
 
