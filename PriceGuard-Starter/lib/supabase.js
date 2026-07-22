@@ -1,0 +1,1 @@
+export function getSupabaseClient(){throw new Error('Configure Supabase');}
