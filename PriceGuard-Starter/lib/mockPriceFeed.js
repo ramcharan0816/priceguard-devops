@@ -1,1 +1,0 @@
-export function getSimulatedPrice(id,b){return b;}

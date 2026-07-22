@@ -1,2 +1,0 @@
-# PriceGuard
-Starter project.
