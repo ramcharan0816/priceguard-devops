@@ -4,12 +4,6 @@ A price-drop tracker with a fully automated CI/CD pipeline and a scheduled
 monitoring job — built to demonstrate production-style engineering practices,
 not just a working app.
 
-![CI/CD Pipeline](https://github.com/YOUR_USERNAME/priceguard/actions/workflows/ci-cd.yml/badge.svg)
-![Scheduled Price Check](https://github.com/YOUR_USERNAME/priceguard/actions/workflows/price-check.yml/badge.svg)
-
-> Replace `YOUR_USERNAME` above with your GitHub username once the repo is live.
-
-## What it does
 
 Add a product, its current price, and a target price. A scheduled job checks
 the price every 30 minutes and emails you the moment it drops to or below
