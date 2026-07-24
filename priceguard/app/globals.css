@@ -162,6 +162,16 @@ a:focus-visible {
   padding: 24px 0;
 }
 
+.error-message {
+  color: var(--red);
+  background: rgba(239, 93, 93, 0.1);
+  border: 1px solid var(--red);
+  border-radius: 4px;
+  padding: 12px 14px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
 .section-label {
   font-family: 'JetBrains Mono', monospace;
   font-size: 11px;
