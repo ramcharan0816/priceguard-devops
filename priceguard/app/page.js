@@ -7,13 +7,25 @@ import ProductCard from "../components/ProductCard";
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   async function loadProducts() {
     setLoading(true);
-    const res = await fetch("/api/products");
-    const data = await res.json();
-    setProducts(data.products || []);
-    setLoading(false);
+    setError(null);
+    try {
+      const res = await fetch("/api/products");
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || `Request failed with status ${res.status}`);
+      }
+      setProducts(data.products || []);
+    } catch (err) {
+      console.error("Failed to load products:", err);
+      setError(err.message || "Failed to load your watchlist. Please try refreshing.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   useEffect(() => {
@@ -21,17 +33,35 @@ export default function Home() {
   }, []);
 
   async function handleAdd(product) {
-    await fetch("/api/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(product),
-    });
-    loadProducts();
+    try {
+      const res = await fetch("/api/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to add product");
+      }
+      await loadProducts();
+    } catch (err) {
+      console.error("Failed to add product:", err);
+      setError(err.message || "Failed to add product. Please try again.");
+    }
   }
 
   async function handleRemove(id) {
-    await fetch(`/api/products/${id}`, { method: "DELETE" });
-    setProducts((prev) => prev.filter((p) => p.id !== id));
+    try {
+      const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to remove product");
+      }
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+    } catch (err) {
+      console.error("Failed to remove product:", err);
+      setError(err.message || "Failed to remove product. Please try again.");
+    }
   }
 
   return (
@@ -46,6 +76,8 @@ export default function Home() {
 
       <div className="section-label">Track a new product</div>
       <AddProductForm onAdd={handleAdd} />
+
+      {error && <p className="error-message">{error}</p>}
 
       <div className="section-label">Currently tracking</div>
       {loading ? (
